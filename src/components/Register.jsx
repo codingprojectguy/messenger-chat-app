@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../store/actions/authAction";
 
 const Register = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -10,8 +13,38 @@ const Register = () => {
     image: "",
   });
 
+  const [loadImage, setLoadImage] = useState("");
+
   const inputHandler = (e) => {
-    setState({ ...state, [e.target.id]: e.target.value });
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const fileHandle = (e) => {
+    if (e.target.files.length !== 0) {
+      setState({ ...state, [e.target.name]: e.target.files[0] });
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setLoadImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const register = (e) => {
+    const { username, email, password, confirmPassword, image } = state;
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("image", image);
+
+    dispatch(userRegister(formData));
   };
 
   return (
@@ -21,7 +54,7 @@ const Register = () => {
           <h3>Register</h3>
         </div>
         <div className="card-body">
-          <form action="">
+          <form onSubmit={register}>
             <div className="form-group">
               <label htmlFor="username">User Name</label>
               <input
@@ -76,11 +109,14 @@ const Register = () => {
 
             <div className="form-group">
               <div className="file-image">
-                <div className="image"></div>
+                <div className="image">
+                  {loadImage ? <img src={loadImage} alt="Uploaded" /> : ""}
+                </div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
                   <input
                     type="file"
+                    onChange={fileHandle}
                     name="image"
                     className="form-control"
                     id="image"
