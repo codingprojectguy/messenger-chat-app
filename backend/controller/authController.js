@@ -1,6 +1,8 @@
 const formidable = require("formidable");
 const validator = require("validator");
 const registerModel = require("../models/authModels");
+const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 module.exports.userRegister = (req, res) => {
   const form = formidable();
@@ -60,11 +62,21 @@ module.exports.userRegister = (req, res) => {
               errorMessage: ["Your email already exited"],
             },
           });
+        } else {
+          fs.copyFile(files.image.filepath, newPath, async (error) => {
+            const userCreate = await registerModel.create({
+              userName,
+              email,
+              password: await bcrypt.hash(password, 10),
+              image: files.image.originalFilename,
+            });
+            console.log("registration Complete successfully");
+          });
         }
       } catch (error) {
         res.status(500).json({
           error: {
-            errorMessage: ["Interanl Server Error"],
+            errorMessage: ["Internal Server Error"],
           },
         });
       }
