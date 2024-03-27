@@ -2,7 +2,7 @@ const { model, Schema } = require("mongoose");
 
 const registerSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       required: true,
     },

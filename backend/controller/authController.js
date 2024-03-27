@@ -7,12 +7,12 @@ const bcrypt = require("bcrypt");
 module.exports.userRegister = (req, res) => {
   const form = formidable();
   form.parse(req, async (err, fields, files) => {
-    const { userName, email, password, confirmPassword } = fields;
+    const { username, email, password, confirmPassword } = fields;
 
     const { image } = files;
     const error = [];
 
-    if (!userName) {
+    if (!username) {
       error.push("Please provide your user name");
     }
     if (!email) {
@@ -35,6 +35,7 @@ module.exports.userRegister = (req, res) => {
     }
     if (Object.keys(files).length === 0) {
       error.push("Please provide user image");
+      console.log(files);
     }
     if (error.length > 0) {
       res.status(400).json({
@@ -64,13 +65,15 @@ module.exports.userRegister = (req, res) => {
           });
         } else {
           fs.copyFile(files.image.filepath, newPath, async (error) => {
-            const userCreate = await registerModel.create({
-              userName,
-              email,
-              password: await bcrypt.hash(password, 10),
-              image: files.image.originalFilename,
-            });
-            console.log("registration Complete successfully");
+            if (!error) {
+              const userCreate = await registerModel.create({
+                username,
+                email,
+                password: await bcrypt.hash(password, 10),
+                image: files.image.originalFilename,
+              });
+              console.log("registration Complete successfully");
+            }
           });
         }
       } catch (error) {
