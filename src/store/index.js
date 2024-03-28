@@ -1,7 +1,10 @@
 import { createStore, compose, combineReducers, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk"; // Adjusted import statement
+import { authReducer } from "./reducers/authReducer";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  auth: authReducer,
+});
 
 const middleware = [thunk];
 
