@@ -1,6 +1,6 @@
 const formidable = require("formidable");
 const validator = require("validator");
-const registerModel = require("../models/authModels");
+const registerModel = require("../models/authModel");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
