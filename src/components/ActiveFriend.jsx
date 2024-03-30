@@ -46,19 +46,19 @@ const ActiveFriend = () => {
           <div className="active-icon"></div>
         </div>
         <div className="image">
-          <img src="/image/20003ariyan.jpg" alt="" />
+          <img src="/image/91661IMG_6782.jpg" alt="" />
           <div className="active-icon"></div>
         </div>
         <div className="image">
-          <img src="/image/20003ariyan.jpg" alt="" />
+          <img src="/image/91661IMG_6782.jpg" alt="" />
           <div className="active-icon"></div>
         </div>
         <div className="image">
-          <img src="/image/20003ariyan.jpg" alt="" />
+          <img src="/image/91661IMG_6782.jpg" alt="" />
           <div className="active-icon"></div>
         </div>
         <div className="image">
-          <img src="/image/20003ariyan.jpg" alt="" />
+          <img src="/image/91661IMG_6782.jpg" alt="" />
           <div className="active-icon"></div>
         </div>
       </div>
