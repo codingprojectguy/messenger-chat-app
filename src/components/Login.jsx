@@ -41,7 +41,7 @@ const Login = () => {
       error.map((err) => alert.error(err));
       dispatch({ type: ERROR_CLEAR });
     }
-  }, [successMessage, error]);
+  }, [successMessage, error, authenticate, navigate, alert, dispatch]);
 
   return (
     <div className="register">
