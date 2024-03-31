@@ -156,7 +156,7 @@ module.exports.userLogin = async (req, res) => {
             {
               id: checkUser._id,
               email: checkUser.email,
-              userName: checkUser.userName,
+              username: checkUser.username,
               image: checkUser.image,
               registerTime: checkUser.createdAt,
             },
