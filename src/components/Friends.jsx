@@ -1,17 +1,18 @@
 import React from "react";
 
-const Friends = () => {
+const Friends = (friend) => {
+  console.log(friend);
   return (
     <div className="friend">
       <div className="friend-image">
         <div className="image">
-          <img src="/image/29533marquee-08.jpg" alt="" />
+          <img src={`./image/${friend.image}`} alt="" />
         </div>
       </div>
 
       <div className="friend-name-seen">
         <div className="friend-name">
-          <h4>Friend</h4>
+          <h4>{friend.username}</h4>
         </div>
       </div>
     </div>
