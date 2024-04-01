@@ -80,8 +80,8 @@ const MessageSend = ({ inputHandle, newMessage, sendMessage }) => {
 
       <div className="emoji-section">
         <div className="emoji">
-          {emojis.map((e) => (
-            <span>{e}</span>
+          {emojis.map((e, index) => (
+            <span key={index}>{e}</span>
           ))}
         </div>
       </div>

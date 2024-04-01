@@ -4,7 +4,7 @@ import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
 import { useDispatch, useSelector } from "react-redux";
-import { getFriends } from "../store/actions/messengerAction";
+import { getFriends, messageSend } from "../store/actions/messengerAction";
 
 const Messenger = () => {
   const [currentfriend, setCurrentFriend] = useState("");
@@ -16,7 +16,14 @@ const Messenger = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(newMessage);
+
+    const data = {
+      senderName: myInfo.username,
+      reseverId: currentfriend._id,
+      message: newMessage ? newMessage : "❤",
+    };
+
+    dispatch(messageSend(data));
   };
 
   const { friends } = useSelector((state) => state.messenger);
@@ -77,6 +84,7 @@ const Messenger = () => {
                 {friends && friends.length > 0
                   ? friends.map((fd) => (
                       <div
+                        key={fd._id}
                         onClick={() => setCurrentFriend(fd)}
                         className={
                           currentfriend._id === fd._id
