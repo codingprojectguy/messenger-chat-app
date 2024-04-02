@@ -6,7 +6,13 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 
-const MessageSend = ({ inputHandle, newMessage, sendMessage, emojiSend }) => {
+const MessageSend = ({
+  inputHandle,
+  newMessage,
+  sendMessage,
+  emojiSend,
+  ImageSend,
+}) => {
   const emojis = [
     "😀",
     "😃",
@@ -44,6 +50,12 @@ const MessageSend = ({ inputHandle, newMessage, sendMessage, emojiSend }) => {
 
       <div className="file hover-image">
         <div className="add-image">Add Image</div>
+        <input
+          onChange={ImageSend}
+          type="file"
+          id="pic"
+          className="form-control"
+        />
         <label htmlFor="pic">
           {" "}
           <FaFileImage />{" "}

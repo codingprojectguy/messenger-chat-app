@@ -8,6 +8,7 @@ import {
   getFriends,
   messageSend,
   getMessage,
+  ImageMessageSend,
 } from "../store/actions/messengerAction";
 
 const Messenger = () => {
@@ -55,6 +56,21 @@ const Messenger = () => {
 
   const emojiSend = (emu) => {
     setNewMessage(`${newMessage}` + emu);
+  };
+
+  const ImageSend = (e) => {
+    if (e.target.files.length !== 0) {
+      const imagename = e.target.files[0].name;
+      const newImageName = Date.now() + imagename;
+
+      const formData = new FormData();
+
+      formData.append("senderName", myInfo.userName);
+      formData.append("imagename", newImageName);
+      formData.append("reseverId", currentfriend._id);
+      formData.append("image", e.target.files[0]);
+      dispatch(ImageMessageSend(formData));
+    }
   };
 
   return (
@@ -128,6 +144,7 @@ const Messenger = () => {
             message={message}
             scrollRef={scrollRef}
             emojiSend={emojiSend}
+            ImageSend={ImageSend}
           />
         ) : (
           "Please Select your Friend"
