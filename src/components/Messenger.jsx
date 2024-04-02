@@ -49,7 +49,16 @@ const Messenger = () => {
       reseverId: currentfriend._id,
       message: newMessage ? newMessage : "❤",
     };
-
+    socket.current.emit("sendMessage", {
+      senderId: myInfo.id,
+      senderName: myInfo.userName,
+      reseverId: currentfriend._id,
+      time: new Date(),
+      message: {
+        text: newMessage ? newMessage : "❤",
+        image: "",
+      },
+    });
     dispatch(messageSend(data));
   };
 
