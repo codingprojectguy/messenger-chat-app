@@ -14,6 +14,7 @@ const RightSide = (props) => {
     scrollRef,
     emojiSend,
     ImageSend,
+    activeUser,
   } = props;
 
   return (
@@ -27,6 +28,13 @@ const RightSide = (props) => {
                 <div className="image-name">
                   <div className="image">
                     <img src={`./image/${currentfriend.image}`} alt="" />
+                    {activeUser &&
+                    activeUser.length > 0 &&
+                    activeUser.some((u) => u.userId === currentfriend._id) ? (
+                      <div className="active-icon"></div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="name">
                     <h3> {currentfriend.username} </h3>
@@ -67,7 +75,7 @@ const RightSide = (props) => {
           </div>
 
           <div className="col-4">
-            <FriendInfo currentfriend={currentfriend} />
+            <FriendInfo currentfriend={currentfriend} activeUser={activeUser} />
           </div>
         </div>
       </div>

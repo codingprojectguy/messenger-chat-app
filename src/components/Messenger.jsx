@@ -20,6 +20,7 @@ const Messenger = () => {
   const { myInfo } = useSelector((state) => state.auth);
   const [currentfriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
+  const [activeUser, setActiveUser] = useState([]);
 
   useEffect(() => {
     socket.current = io("ws://localhost:8000");
@@ -28,6 +29,13 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", myInfo.id, myInfo);
   }, [myInfo]);
+
+  useEffect(() => {
+    socket.current.on("getUser", (users) => {
+      const filterUser = users.filter((u) => u.userId !== myInfo.id);
+      setActiveUser(filterUser);
+    });
+  }, [myInfo.id]);
 
   const inputHandle = (e) => {
     setNewMessage(e.target.value);
@@ -121,7 +129,14 @@ const Messenger = () => {
               </div>
 
               <div className="active-friends">
-                <ActiveFriend />
+                {activeUser && activeUser.length > 0
+                  ? activeUser.map((u) => (
+                      <ActiveFriend
+                        setCurrentFriend={setCurrentFriend}
+                        user={u}
+                      />
+                    ))
+                  : ""}
               </div>
 
               <div className="friends">
@@ -154,6 +169,7 @@ const Messenger = () => {
             scrollRef={scrollRef}
             emojiSend={emojiSend}
             ImageSend={ImageSend}
+            activeUser={activeUser}
           />
         ) : (
           "Please Select your Friend"
