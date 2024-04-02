@@ -6,7 +6,7 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 
-const MessageSend = ({ inputHandle, newMessage, sendMessage }) => {
+const MessageSend = ({ inputHandle, newMessage, sendMessage, emojiSend }) => {
   const emojis = [
     "😀",
     "😃",
@@ -81,7 +81,9 @@ const MessageSend = ({ inputHandle, newMessage, sendMessage }) => {
       <div className="emoji-section">
         <div className="emoji">
           {emojis.map((e, index) => (
-            <span key={index}>{e}</span>
+            <span onClick={() => emojiSend(e)} key={index}>
+              {e}
+            </span>
           ))}
         </div>
       </div>
