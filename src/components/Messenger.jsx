@@ -10,9 +10,15 @@ import {
   getMessage,
   ImageMessageSend,
 } from "../store/actions/messengerAction";
+import io from "socket.io-client";
 
 const Messenger = () => {
   const scrollRef = useRef();
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8000");
+  }, []);
 
   const [currentfriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
