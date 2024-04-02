@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
@@ -11,6 +11,8 @@ import {
 } from "../store/actions/messengerAction";
 
 const Messenger = () => {
+  const scrollRef = useRef();
+
   const [currentfriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
 
@@ -46,6 +48,10 @@ const Messenger = () => {
     dispatch(getMessage(currentfriend._id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentfriend?._id]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
 
   return (
     <div className="messenger">
@@ -116,6 +122,7 @@ const Messenger = () => {
             newMessage={newMessage}
             sendMessage={sendMessage}
             message={message}
+            scrollRef={scrollRef}
           />
         ) : (
           "Please Select your Friend"
