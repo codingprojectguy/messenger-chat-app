@@ -51,7 +51,7 @@ module.exports.messageGet = async (req, res) => {
   // console.log(fdId);
   try {
     let getAllMessage = await messageModel.find({});
-    console.log(getAllMessage);
+    // console.log(getAllMessage);
     getAllMessage = getAllMessage.filter(
       (m) =>
         (m.senderId === myId && m.reseverId === fdId) ||
