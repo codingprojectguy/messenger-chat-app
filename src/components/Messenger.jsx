@@ -30,7 +30,7 @@ const Messenger = () => {
     dispatch(messageSend(data));
   };
 
-  const { friends } = useSelector((state) => state.messenger);
+  const { friends, message } = useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
   // console.log(myInfo);
   const dispatch = useDispatch();
@@ -115,6 +115,7 @@ const Messenger = () => {
             inputHandle={inputHandle}
             newMessage={newMessage}
             sendMessage={sendMessage}
+            message={message}
           />
         ) : (
           "Please Select your Friend"
