@@ -10,6 +10,7 @@ import {
   getMessage,
   ImageMessageSend,
 } from "../store/actions/messengerAction";
+import toast, { Toaster } from "react-hot-toast";
 import io from "socket.io-client";
 
 const Messenger = () => {
@@ -62,6 +63,16 @@ const Messenger = () => {
     });
   }, [myInfo.id]);
 
+  useEffect(() => {
+    if (
+      socketMessage &&
+      socketMessage.senderId !== currentfriend._id &&
+      socketMessage.reseverId === myInfo.id
+    ) {
+      toast.success(`${socketMessage.senderName} Send a New Message`);
+    }
+  }, [currentfriend._id, myInfo.id, socketMessage]);
+
   const inputHandle = (e) => {
     setNewMessage(e.target.value);
 
@@ -82,7 +93,7 @@ const Messenger = () => {
     };
     socket.current.emit("sendMessage", {
       senderId: myInfo.id,
-      senderName: myInfo.userName,
+      senderName: myInfo.username,
       reseverId: currentfriend._id,
       time: new Date(),
       message: {
@@ -156,6 +167,15 @@ const Messenger = () => {
 
   return (
     <div className="messenger">
+      <Toaster
+        position={"top-center"}
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            fontSize: "18px",
+          },
+        }}
+      />
       <div className="row">
         <div className="col-3">
           <div className="left-side">
