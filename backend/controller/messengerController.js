@@ -57,7 +57,7 @@ module.exports.getFriends = async (req, res) => {
       fnd_msg = [
         ...fnd_msg,
         {
-          fndInfo: friendGet[i],
+          findInfo: friendGet[i],
           msgInfo: lmsg,
         },
       ];
