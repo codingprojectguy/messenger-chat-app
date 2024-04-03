@@ -37,6 +37,15 @@ const Friends = (props) => {
             </span>
           </div>
         </div>
+        {myId === msgInfo?.senderId ? (
+          <div className="seen-unseen-icon">
+            <img src={`./image/${findInfo.image}`} alt="" />
+          </div>
+        ) : (
+          <div className="seen-unseen-icon">
+            <div className="seen-icon"></div>
+          </div>
+        )}
       </div>
     </div>
   );
