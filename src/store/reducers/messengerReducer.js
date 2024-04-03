@@ -8,6 +8,7 @@ import {
 const messengerState = {
   friend: [],
   message: [],
+  messageSendSuccess: false,
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -28,6 +29,7 @@ export const messengerReducer = (state = messengerState, action) => {
   if (type === MESSAGE_SEND_SUCCESS) {
     return {
       ...state,
+      messageSendSuccess: true,
       message: [...state.message, payload.message],
     };
   }
