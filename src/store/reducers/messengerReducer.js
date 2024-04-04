@@ -8,12 +8,14 @@ import {
   SEEN_MESSAGE,
   DELIVERED_MESSAGE,
   UPDATE,
+  MESSAGE_GET_SUCCESS_CLEAR,
 } from "../types/messengerType";
 
 const messengerState = {
   friend: [],
   message: [],
   messageSendSuccess: false,
+  message_get_success: false,
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -27,6 +29,7 @@ export const messengerReducer = (state = messengerState, action) => {
   if (type === MESSAGE_GET_SUCCESS) {
     return {
       ...state,
+      message_get_success: true,
       message: payload.message,
     };
   }
@@ -95,6 +98,13 @@ export const messengerReducer = (state = messengerState, action) => {
     }
     return {
       ...state,
+    };
+  }
+
+  if (type === MESSAGE_GET_SUCCESS_CLEAR) {
+    return {
+      ...state,
+      message_get_success: false,
     };
   }
 

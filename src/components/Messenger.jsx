@@ -25,9 +25,8 @@ const Messenger = () => {
   const scrollRef = useRef();
   const socket = useRef();
 
-  const { friends, message, messageSendSuccess } = useSelector(
-    (state) => state.messenger
-  );
+  const { friends, message, messageSendSuccess, message_get_success } =
+    useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
   const [currentfriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -185,6 +184,20 @@ const Messenger = () => {
       });
     }
   }, [currentfriend?._id]);
+
+  useEffect(() => {
+    if (message.length > 0) {
+      if (
+        message[message.length - 1].senderId !== myInfo.id &&
+        message[message.length - 1].status !== "seen"
+      ) {
+        dispatch(seenMessage({ _id: message[message.length - 1]._id }));
+      }
+    }
+    dispatch({
+      type: "MESSAGE_GET_SUCCESS_CLEAR",
+    });
+  }, [message_get_success]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
