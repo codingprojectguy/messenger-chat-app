@@ -9,6 +9,7 @@ import {
   messageSend,
   getMessage,
   ImageMessageSend,
+  seenMessage,
 } from "../store/actions/messengerAction";
 import toast, { Toaster } from "react-hot-toast";
 import io from "socket.io-client";
@@ -53,6 +54,13 @@ const Messenger = () => {
           type: "SOCKET_MESSAGE",
           payload: {
             message: socketMessage,
+          },
+        });
+        dispatch(seenMessage(socketMessage));
+        dispatch({
+          type: "UPDATE_FRIEND_MESSAGE",
+          payload: {
+            msgInfo: socketMessage,
           },
         });
       }
