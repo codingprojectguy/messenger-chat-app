@@ -60,6 +60,13 @@ const Messenger = () => {
         },
       });
     });
+
+    socket.current.on("seenSuccess", (data) => {
+      dispatch({
+        type: "SEEN_ALL",
+        payload: data,
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -191,6 +198,10 @@ const Messenger = () => {
         message[message.length - 1].senderId !== myInfo.id &&
         message[message.length - 1].status !== "seen"
       ) {
+        socket.current.emit("seen", {
+          senderId: currentfriend._id,
+          reseverId: myInfo.id,
+        });
         dispatch(seenMessage({ _id: message[message.length - 1]._id }));
       }
     }
