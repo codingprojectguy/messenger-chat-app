@@ -8,7 +8,7 @@ const ActiveFriend = ({ user, setCurrentFriend }) => {
           _id: user.userInfo.id,
           email: user.userInfo.email,
           image: user.userInfo.image,
-          userName: user.userInfo.userName,
+          username: user.userInfo.username,
         })
       }
       className="active-friend"

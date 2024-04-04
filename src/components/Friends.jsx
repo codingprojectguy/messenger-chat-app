@@ -5,12 +5,20 @@ import { FaRegCheckCircle } from "react-icons/fa";
 const Friends = (props) => {
   const { findInfo, msgInfo } = props.friend;
   const myId = props.myId;
+  const { activeUser } = props;
   // console.log(friend.friend);
   return (
     <div className="friend">
       <div className="friend-image">
         <div className="image">
           <img src={`./image/${findInfo.image}`} alt="" />
+          {activeUser &&
+          activeUser.length > 0 &&
+          activeUser.some((u) => u.userId === findInfo._id) ? (
+            <div className="active_icon"></div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 

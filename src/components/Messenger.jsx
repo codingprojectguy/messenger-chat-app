@@ -231,7 +231,7 @@ const Messenger = () => {
 
       socket.current.emit("sendMessage", {
         senderId: myInfo.id,
-        senderName: myInfo.userName,
+        senderName: myInfo.username,
         reseverId: currentfriend._id,
         time: new Date(),
         message: {
@@ -242,7 +242,7 @@ const Messenger = () => {
 
       const formData = new FormData();
 
-      formData.append("senderName", myInfo.userName);
+      formData.append("senderName", myInfo.username);
       formData.append("imageName", newImageName);
       formData.append("reseverId", currentfriend._id);
       formData.append("image", e.target.files[0]);
@@ -297,7 +297,7 @@ const Messenger = () => {
                 />
               </div>
 
-              <div className="active-friends">
+              {/* <div className="active-friends">
                 {activeUser && activeUser.length > 0
                   ? activeUser.map((u) => (
                       <ActiveFriend
@@ -306,7 +306,7 @@ const Messenger = () => {
                       />
                     ))
                   : ""}
-              </div>
+              </div> */}
 
               <div className="friends">
                 {friends && friends.length > 0
@@ -320,7 +320,11 @@ const Messenger = () => {
                             : "hover-friend"
                         }
                       >
-                        <Friends myId={myInfo.id} friend={fd} />
+                        <Friends
+                          activeUser={activeUser}
+                          myId={myInfo.id}
+                          friend={fd}
+                        />
                       </div>
                     ))
                   : "No Friend"}
