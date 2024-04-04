@@ -10,6 +10,7 @@ import {
   getMessage,
   ImageMessageSend,
   seenMessage,
+  updateMessage,
 } from "../store/actions/messengerAction";
 import toast, { Toaster } from "react-hot-toast";
 import io from "socket.io-client";
@@ -87,8 +88,16 @@ const Messenger = () => {
     ) {
       notificationSPlay();
       toast.success(`${socketMessage.senderName} Send a New Message`);
+
+      dispatch(updateMessage(socketMessage));
+      dispatch({
+        type: "UPDATE_FRIEND_MESSAGE",
+        payload: {
+          msgInfo: socketMessage,
+        },
+      });
     }
-  }, [currentfriend._id, myInfo.id, socketMessage]);
+  }, [socketMessage]);
 
   const inputHandle = (e) => {
     setNewMessage(e.target.value);
