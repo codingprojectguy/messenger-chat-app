@@ -24,16 +24,47 @@ const Friends = (props) => {
 
       <div className="friend-name-seen">
         <div className="friend-name">
-          <h4>{findInfo.username}</h4>
+          <h4
+            className={
+              msgInfo?.senderId !== myId &&
+              msgInfo?.status !== undefined &&
+              msgInfo.status !== "seen"
+                ? "unseen_message "
+                : ""
+            }
+          >
+            {findInfo.username}
+          </h4>
 
           <div className="msg-time">
             {msgInfo && msgInfo.senderId === myId ? (
               <span>You </span>
             ) : (
-              <span> {findInfo.username + " "} </span>
+              <span
+                className={
+                  msgInfo?.senderId !== myId &&
+                  msgInfo?.status !== undefined &&
+                  msgInfo.status !== "seen"
+                    ? "unseen_message "
+                    : ""
+                }
+              >
+                {" "}
+                {findInfo.username + " "}{" "}
+              </span>
             )}
             {msgInfo && msgInfo.message.text ? (
-              <span>{msgInfo.message.text.slice(0, 10)}</span>
+              <span
+                className={
+                  msgInfo?.senderId !== myId &&
+                  msgInfo?.status !== undefined &&
+                  msgInfo.status !== "seen"
+                    ? "unseen_message "
+                    : ""
+                }
+              >
+                {msgInfo.message.text.slice(0, 10)}
+              </span>
             ) : msgInfo && msgInfo.message.image ? (
               <span>Send A image </span>
             ) : (
