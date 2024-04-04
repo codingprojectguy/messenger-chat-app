@@ -43,6 +43,24 @@ const Messenger = () => {
     socket.current.on("typingMessageGet", (data) => {
       setTypingMessage(data);
     });
+
+    socket.current.on("msgSeenResponse", (msg) => {
+      dispatch({
+        type: "SEEN_MESSAGE",
+        payload: {
+          msgInfo: msg,
+        },
+      });
+    });
+
+    socket.current.on("msgDeliveredResponse", (msg) => {
+      dispatch({
+        type: "DELIVERED_MESSAGE",
+        payload: {
+          msgInfo: msg,
+        },
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -59,10 +77,12 @@ const Messenger = () => {
         });
 
         dispatch(seenMessage(socketMessage));
+        socket.current.emit("messageSeen", socketMessage);
         dispatch({
           type: "UPDATE_FRIEND_MESSAGE",
           payload: {
             msgInfo: socketMessage,
+            status: "seen",
           },
         });
       }
@@ -90,10 +110,12 @@ const Messenger = () => {
       notificationSPlay();
       toast.success(`${socketMessage.senderName} Send a New Message`);
       dispatch(updateMessage(socketMessage));
+      socket.current.emit("deliveredMessage", socketMessage);
       dispatch({
         type: "UPDATE_FRIEND_MESSAGE",
         payload: {
           msgInfo: socketMessage,
+          status: "delivered",
         },
       });
     }
