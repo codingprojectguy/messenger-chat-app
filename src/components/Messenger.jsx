@@ -171,7 +171,7 @@ const Messenger = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (friends && friends.length > 0) setCurrentFriend(friends[0]);
+    if (friends && friends.length > 0) setCurrentFriend(friends[0].findInfo);
   }, [friends]);
 
   useEffect(() => {
