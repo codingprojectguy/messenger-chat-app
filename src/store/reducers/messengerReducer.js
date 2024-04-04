@@ -7,6 +7,7 @@ import {
   MESSAGE_SEND_SUCCESS_CLEAR,
   SEEN_MESSAGE,
   DELIVERED_MESSAGE,
+  UPDATE,
 } from "../types/messengerType";
 
 const messengerState = {
@@ -87,5 +88,15 @@ export const messengerReducer = (state = messengerState, action) => {
       ...state,
     };
   }
+  if (type === UPDATE) {
+    const index = state.friends.findIndex((f) => f.findInfo._id === payload.id);
+    if (state.friends[index].msgInfo) {
+      state.friends[index].msgInfo.status = "seen";
+    }
+    return {
+      ...state,
+    };
+  }
+
   return state;
 };

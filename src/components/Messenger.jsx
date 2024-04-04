@@ -176,7 +176,14 @@ const Messenger = () => {
 
   useEffect(() => {
     dispatch(getMessage(currentfriend._id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (friends && friends.length > 0) {
+      dispatch({
+        type: "UPDATE",
+        payload: {
+          id: currentfriend._id,
+        },
+      });
+    }
   }, [currentfriend?._id]);
 
   useEffect(() => {
