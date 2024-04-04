@@ -3,6 +3,8 @@ import {
   MESSAGE_GET_SUCCESS,
   MESSAGE_SEND_SUCCESS,
   SOCKET_MESSAGE,
+  UPDATE_FRIEND_MESSAGE,
+  MESSAGE_SEND_SUCCESS_CLEAR,
 } from "../types/messengerType";
 
 const messengerState = {
@@ -38,6 +40,24 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       message: [...state.message, payload.message],
+    };
+  }
+
+  if (type === UPDATE_FRIEND_MESSAGE) {
+    const index = state.friends.findIndex(
+      (f) =>
+        f.findInfo._id === payload.msgInfo.reseverId ||
+        f.findInfo._id === payload.msgInfo.senderId
+    );
+
+    state.friends[index].msgInfo = payload.msgInfo;
+    return state;
+  }
+
+  if (type === MESSAGE_SEND_SUCCESS_CLEAR) {
+    return {
+      ...state,
+      messageSendSuccess: false,
     };
   }
   return state;
