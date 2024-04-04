@@ -53,7 +53,7 @@ export const messengerReducer = (state = messengerState, action) => {
     );
 
     state.friends[index].msgInfo = payload.msgInfo;
-    state.friends[index].msgInfo.state = payload.status;
+    state.friends[index].msgInfo.status = payload.status;
     return state;
   }
 
@@ -67,10 +67,10 @@ export const messengerReducer = (state = messengerState, action) => {
   if (type === SEEN_MESSAGE) {
     const index = state.friends.findIndex(
       (f) =>
-        f.fndInfo._id === payload.msgInfo.reseverId ||
-        f.fndInfo._id === payload.msgInfo.senderId
+        f.findInfo._id === payload.msgInfo.reseverId ||
+        f.findInfo._id === payload.msgInfo.senderId
     );
-    state.friends[index].msgInfo.state = "seen";
+    state.friends[index].msgInfo.status = "seen";
     return {
       ...state,
     };
@@ -79,10 +79,10 @@ export const messengerReducer = (state = messengerState, action) => {
   if (type === DELIVERED_MESSAGE) {
     const index = state.friends.findIndex(
       (f) =>
-        f.fndInfo._id === payload.msgInfo.reseverId ||
-        f.fndInfo._id === payload.msgInfo.senderId
+        f.findInfo._id === payload.msgInfo.reseverId ||
+        f.findInfo._id === payload.msgInfo.senderId
     );
-    state.friends[index].msgInfo.state = "delivered";
+    state.friends[index].msgInfo.status = "delivered";
     return {
       ...state,
     };
