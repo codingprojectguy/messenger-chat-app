@@ -57,6 +57,7 @@ const Messenger = () => {
             message: socketMessage,
           },
         });
+
         dispatch(seenMessage(socketMessage));
         dispatch({
           type: "UPDATE_FRIEND_MESSAGE",
@@ -88,7 +89,6 @@ const Messenger = () => {
     ) {
       notificationSPlay();
       toast.success(`${socketMessage.senderName} Send a New Message`);
-
       dispatch(updateMessage(socketMessage));
       dispatch({
         type: "UPDATE_FRIEND_MESSAGE",

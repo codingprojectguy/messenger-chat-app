@@ -51,6 +51,7 @@ export const messengerReducer = (state = messengerState, action) => {
     );
 
     state.friends[index].msgInfo = payload.msgInfo;
+
     return state;
   }
 
@@ -60,5 +61,6 @@ export const messengerReducer = (state = messengerState, action) => {
       messageSendSuccess: false,
     };
   }
+
   return state;
 };
