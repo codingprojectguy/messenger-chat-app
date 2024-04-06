@@ -83,3 +83,7 @@ export const updateMessage = (msg) => async (dispatch) => {
     console.log(error.response.message);
   }
 };
+
+export const getTheme = () => async (dispatch) => {};
+
+export const themeSet = () => async (dispatch) => {};

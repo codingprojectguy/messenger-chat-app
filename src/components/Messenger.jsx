@@ -11,6 +11,8 @@ import {
   ImageMessageSend,
   seenMessage,
   updateMessage,
+  getTheme,
+  themeSet,
 } from "../store/actions/messengerAction";
 import { userLogout } from "../store/actions/authAction";
 import toast, { Toaster } from "react-hot-toast";
@@ -258,8 +260,12 @@ const Messenger = () => {
     socket.current.emit("logout", myInfo.id);
   };
 
+  useEffect(() => {
+    dispatch(getTheme());
+  }, []);
+
   return (
-    <div className="messenger">
+    <div className="messenger theme">
       <Toaster
         position={"top-center"}
         reverseOrder={false}
@@ -293,12 +299,24 @@ const Messenger = () => {
                   <h3>Dark Mode </h3>
                   <div className="on">
                     <label htmlFor="dark">ON</label>
-                    <input type="radio" value="dark" name="theme" id="dark" />
+                    <input
+                      onChange={(e) => dispatch(themeSet(e.target.value))}
+                      type="radio"
+                      value="dark"
+                      name="theme"
+                      id="dark"
+                    />
                   </div>
 
                   <div className="of">
                     <label htmlFor="white">OFF</label>
-                    <input type="radio" value="white" name="theme" id="white" />
+                    <input
+                      onChange={(e) => dispatch(themeSet(e.target.value))}
+                      type="radio"
+                      value="white"
+                      name="theme"
+                      id="white"
+                    />
                   </div>
 
                   <div onClick={logout} className="logout">
