@@ -3,13 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../store/actions/authAction";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR } from "../store/types/authType";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const alert = useAlert();
   const { loading, authenticate, error, successMessage, myInfo } = useSelector(
     (state) => state.auth
   );
@@ -34,14 +32,13 @@ const Login = () => {
       navigate("/");
     }
     if (successMessage) {
-      alert.success(successMessage);
       dispatch({ type: SUCCESS_MESSAGE_CLEAR });
     }
     if (error) {
-      error.map((err) => alert.error(err));
+      error.map((err) => {});
       dispatch({ type: ERROR_CLEAR });
     }
-  }, [successMessage, error, authenticate, navigate, alert, dispatch]);
+  }, [successMessage, error, authenticate, navigate, dispatch]);
 
   return (
     <div className="register">
