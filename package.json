@@ -6,7 +6,7 @@
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "socket": "nodemon socket.js --prefix socket",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run socket\""
   },
   "keywords": [],
   "author": "",
